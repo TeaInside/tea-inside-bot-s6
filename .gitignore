@@ -1,2 +1,10 @@
+*.o
+*.so
+*.swo
+*.swp
+*.tmp
+*.log
+*.lock
 /build
 /installed
+/include/config.hpp

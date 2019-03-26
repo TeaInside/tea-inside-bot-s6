@@ -3,6 +3,7 @@
 #include <iostream>
 #include <json.hpp>
 #include <bot/bot.hpp>
+#include <config.h>
 
 namespace bot {
 
