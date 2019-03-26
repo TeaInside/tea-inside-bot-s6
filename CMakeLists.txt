@@ -26,8 +26,16 @@ add_executable(icetea_s6 ${sources} ${include})
 # Just for example add some compiler flags.
 target_compile_options(icetea_s6 PUBLIC -std=c++1y -Wall -Wfloat-conversion)
 
+SET(CMAKE_CXX_COMPILER /usr/bin/g++)
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lfcgi++ -lfcgi")
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -ggdb")
+#set(CMAKE_CXX_FLAGS_MINSIZEREL "put your flags")
+#set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "put your flags")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -s")
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(icetea_s6 PUBLIC include)
+
+target_link_libraries(icetea_s6 fcgi++ fcgi)
 
 # This copies all resource files in the build directory.
 # We need this, because we want to work with paths relative to the executable.
@@ -45,6 +53,10 @@ target_include_directories(icetea_s6 PUBLIC include)
 #  ${Boost_LIBRARIES}
   # here you can add any library dependencies
 #)
+
+# find_package(nlohmann_json 3.2.0 REQUIRED)
+# target_link_libraries(icetea_s6 PRIVATE nlohmann_json::nlohmann_json)
+
 
 ###############################################################################
 ## testing ####################################################################

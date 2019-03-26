@@ -2,12 +2,19 @@
 #ifndef BOT_BOT_HPP
 #define BOT_BOT_HPP
 
+#include <json.hpp>
+
 namespace bot {
+
+	using json = nlohmann::json;
+
 	class bot {
 		public:
-			bot(char **in);
+			bot(const char *in);
+			void exec();
 		private:
-			char **in;
+			const char *in;
+			json d;
 	};
 };
 
