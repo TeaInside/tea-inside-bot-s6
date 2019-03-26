@@ -1,41 +1,22 @@
 cmake_minimum_required(VERSION 3.0) # setting this is required
 project(TeaInsideBot_S6)            # this sets the project name
 
-###############################################################################
-## file globbing ##############################################################
-###############################################################################
-
-# These instructions search the directory tree when cmake is
-# invoked and put all files that match the pattern in the variables 
-# `sources` and `data`.
 file(GLOB_RECURSE sources src/*.cpp)
 file(GLOB_RECURSE include include/*.hpp)
-# file(GLOB_RECURSE sources_test src/test/*.cpp)
-# file(GLOB_RECURSE data resources/*)
-# You can use set(sources src/main.cpp) etc if you don't want to
-# use globbing to find files automatically.
 
-###############################################################################
-## target definitions #########################################################
-###############################################################################
-
-# The data is just added to the executable, because in some IDEs (QtCreator) 
-# files are invisible when they are not explicitly part of the project.
 add_executable(icetea_s6 ${sources} ${include})
 
-# Just for example add some compiler flags.
-target_compile_options(icetea_s6 PUBLIC -std=c++1y -Wall -Wfloat-conversion)
-
 SET(CMAKE_CXX_COMPILER /usr/bin/g++)
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lfcgi++ -lfcgi")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -ggdb")
 #set(CMAKE_CXX_FLAGS_MINSIZEREL "put your flags")
 #set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "put your flags")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -s")
+
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(icetea_s6 PUBLIC include)
 
 target_link_libraries(icetea_s6 fcgi++ fcgi)
+target_compile_options(icetea_s6 PUBLIC -std=c++1y -Wall -Wfloat-conversion)
 
 # This copies all resource files in the build directory.
 # We need this, because we want to work with paths relative to the executable.
