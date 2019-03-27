@@ -1,22 +1,30 @@
 
-#include <cstdio>
 #include <iostream>
-#include <json.hpp>
 #include <bot/bot.hpp>
-#include <config.hpp>
 
-namespace bot {
+using json = nlohmann::json;
 
-	using json = nlohmann::json;
+bot::bot::bot(const char *in) {
+	this->_in = in;
+	this->in  = json::parse(std::string(in));
+	this->chat_id = this->in["message"]["chat"].value("id", -1LL);
+	this->text = this->in["message"].value("text", "");
 
-	bot::bot(const char *in) {
-		this->_in = in;
-		this->in  = json::parse(std::string(in));
+	if (this->text != "") {
+		this->msg_type = msg_text;
 	}
 
-	void bot::exec() {
-		printf("in\n");
-		this->chat_id = this->in["message"]["chat"].value("id", -1LL);
-		printf("chat_id: %ld\n", this->chat_id);
+	std::string chat_type = this->in["message"]["chat"].value("type", "");
+	if (!chat_type.compare("private")) {
+		this->chat_type = chat_private;
+	} else {
+		this->chat_type = chat_group;
+	}
+
+}
+
+void bot::bot::exec() {
+	if (this->msg_type == msg_text) {
+		this->dispatch();
 	}
 }

@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-DESTEH_DEBUG -O3 -s")
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(icetea_s6 PUBLIC include)
 
-target_link_libraries(icetea_s6 fcgi++ fcgi)
+target_link_libraries(icetea_s6 fcgi++ fcgi curl)
 target_compile_options(icetea_s6 PUBLIC -std=c++1y -Wall -Wfloat-conversion)
 
 # This copies all resource files in the build directory.
