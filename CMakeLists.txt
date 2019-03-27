@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-DESTEH_DEBUG -O3 -s")
 target_include_directories(icetea_s6 PUBLIC include)
 
 target_link_libraries(icetea_s6 fcgi++ fcgi curl)
-target_compile_options(icetea_s6 PUBLIC -std=c++1y -Wall -Wfloat-conversion)
+target_compile_options(icetea_s6 PUBLIC -std=c++11 -Wall -Wfloat-conversion)
 
 # This copies all resource files in the build directory.
 # We need this, because we want to work with paths relative to the executable.
