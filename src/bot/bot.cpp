@@ -7,7 +7,7 @@ using json = nlohmann::json;
 bot::bot::bot(const char *in) {
 	this->_in = in;
 	this->in  = json::parse(std::string(in));
-	this->chat_id = this->in["message"]["chat"].value("id", -1LL);
+	this->chat_id = this->in["message"]["chat"].value("id", -1L);
 	this->text = this->in["message"].value("text", "");
 
 	if (this->text != "") {
