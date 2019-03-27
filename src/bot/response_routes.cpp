@@ -1,6 +1,6 @@
 
+#include <utils.hpp>
 #include <bot/bot.hpp>
-#include <urlencode.hpp>
 #include <lang/en/start.hpp>
 
 using json = nlohmann::json;
@@ -13,9 +13,8 @@ void bot::bot::dispatch() {
 			"sendMessage",
 			std::string(
 				"chat_id="+std::to_string(this->chat_id)+
-				"&text="+urlencode(
-					(this->chat_type == chat_private ? start_private : start_group)
-				)
+				"&text="+urlencode(this->lang_bind(this->chat_type == chat_private ? start_private : start_group))+
+				"&parse_mode=html"
 			).c_str()
 		);
 	}

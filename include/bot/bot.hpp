@@ -32,46 +32,31 @@ namespace bot {
 		public:
 			bot(const char *in);
 			void exec();
-
-			std::string exe(const char *method, const char *body) {
-
-				char *_url = (char *)malloc(sizeof("https://api.telegram.org/bot" TOKEN "/") - 1 + strlen(method));
-				sprintf(_url, "https://api.telegram.org/bot" TOKEN "/%s", method);
-
-				CURL *curl;
-				// CURLcode res;
-				std::string readBuffer = "";
-				curl = curl_easy_init();
-				if (curl) {
-					curl_easy_setopt(curl, CURLOPT_URL, _url);
-					curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, this->curl_write_callback);
-					curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-					curl_easy_setopt(curl, CURLOPT_POST, true);
-					curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body);
-					curl_easy_setopt(curl, CURLOPT_VERBOSE, true);
-					curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-					curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
-					/*res = */curl_easy_perform(curl);
-					curl_easy_cleanup(curl);
-				}
-
-				return readBuffer;
-			}
-
+			CURLcode exe(const char *method, const char *body, std::string *response = nullptr);
 		private:
 			inline static size_t curl_write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
 			    ((std::string*)userp)->append((char*)contents, size * nmemb);
 			    return size * nmemb;
 			}
-
+			#ifdef ESTEH_DEBUG
+			void validate();
+			#endif
 			void dispatch();
+			std::string lang_bind(std::string str);
 
 			const char *_in;
 			json in;
+			bool has_been_bind = false;
 			uint8_t msg_type = msg_unknown;
 			uint8_t chat_type = chat_unknown;
 			int64_t chat_id = -1L;
-			std::string text;
+			int64_t user_id = -1L;
+			bool is_bot = false;
+			std::string text = "";
+			std::string first_name = "";
+			std::string last_name = "";
+			std::string username = "";
+			std::string namelink = "";
 	};
 };
 
