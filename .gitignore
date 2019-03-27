@@ -7,4 +7,5 @@
 *.lock
 /build
 /installed
+/.phpintel/
 /include/config.hpp

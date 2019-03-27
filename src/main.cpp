@@ -43,6 +43,11 @@ int main(int argc, char **argv) {
 
 	        if (!fork()) {
 	        	const char *_data = data.c_str();
+
+	        	#ifdef ESTEH_DEBUG
+	        		printf("Data: %s\n", _data);
+	        	#endif
+
 	        	sprintf(argv[0], "%s-worker --data %s", argv[0], _data);
 	        	cin.rdbuf(cin_streambuf);
     			cout.rdbuf(cout_streambuf);

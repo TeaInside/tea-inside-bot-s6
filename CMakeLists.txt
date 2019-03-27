@@ -10,7 +10,7 @@ SET(CMAKE_CXX_COMPILER /usr/bin/g++)
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -ggdb")
 #set(CMAKE_CXX_FLAGS_MINSIZEREL "put your flags")
 #set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "put your flags")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -s")
+set(CMAKE_CXX_FLAGS_RELEASE "-DESTEH_DEBUG -O3 -s")
 
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(icetea_s6 PUBLIC include)

@@ -3,6 +3,7 @@
 #define BOT_BOT_HPP
 
 #include <json.hpp>
+#include <stdint.h>
 
 namespace bot {
 
@@ -13,8 +14,9 @@ namespace bot {
 			bot(const char *in);
 			void exec();
 		private:
-			const char *in;
-			json d;
+			const char *_in;
+			json in;
+			int64_t chat_id = -1LL;
 	};
 };
 

@@ -3,18 +3,20 @@
 #include <iostream>
 #include <json.hpp>
 #include <bot/bot.hpp>
-#include <config.h>
+#include <config.hpp>
 
 namespace bot {
 
 	using json = nlohmann::json;
 
 	bot::bot(const char *in) {
-		this->in = in;
-		this->d  = json::parse(std::string(in));
+		this->_in = in;
+		this->in  = json::parse(std::string(in));
 	}
 
 	void bot::exec() {
-		printf("%s\n", std::string(this->d["hello"]).c_str());
+		printf("in\n");
+		this->chat_id = this->in["message"]["chat"].value("id", -1LL);
+		printf("chat_id: %ld\n", this->chat_id);
 	}
 }
