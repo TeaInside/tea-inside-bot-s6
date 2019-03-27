@@ -29,12 +29,14 @@ $a = '{
     }
 }';
 
-$ch = curl_init("http://127.0.0.1");
+$ch = curl_init("https://127.0.0.1:8888/");
 curl_setopt_array($ch,
 	[
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_POSTFIELDS => json_encode(json_decode($a)),
-		CURLOPT_POST => true
+		CURLOPT_POST => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false
 	]
 );
 echo curl_exec($ch)."\n";
