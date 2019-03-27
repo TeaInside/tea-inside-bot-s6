@@ -29,7 +29,7 @@ $a = '{
     }
 }';
 
-$ch = curl_init("https://127.0.0.1:8888/");
+$ch = curl_init("https://127.0.0.1:8888");
 curl_setopt_array($ch,
 	[
 		CURLOPT_RETURNTRANSFER => true,
