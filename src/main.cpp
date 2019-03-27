@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 	if (!strcmp(argv[1], "fcgi")) {
 		signal(SIGCHLD, SIG_IGN);
 		// Backup the stdio streambufs
-		// streambuf *cin_streambuf  = cin.rdbuf();
+		streambuf *cin_streambuf  = cin.rdbuf();
 		streambuf *cout_streambuf = cout.rdbuf();
 		// streambuf *cerr_streambuf = cerr.rdbuf();
 		FCGX_Request request;
@@ -33,13 +33,15 @@ int main(int argc, char **argv) {
 		while (FCGX_Accept_r(&request) == 0) {
 			fcgi_streambuf cin_fcgi_streambuf(request.in);
 			fcgi_streambuf cout_fcgi_streambuf(request.out);
-			fcgi_streambuf cerr_fcgi_streambuf(request.err);
+			// fcgi_streambuf cerr_fcgi_streambuf(request.err);
 
-			// cin.rdbuf(&cin_fcgi_streambuf);
+			cin.rdbuf(&cin_fcgi_streambuf);
 			cout.rdbuf(&cout_fcgi_streambuf);
 			// cerr.rdbuf(&cerr_fcgi_streambuf);
 
 			string data = get_request_content(request);
+
+			printf("data: %s\n", data.c_str());
 
 			if (!fork()) {
 				const char *_data = data.c_str();
@@ -61,7 +63,7 @@ int main(int argc, char **argv) {
 			cout << "Content-type: application/json\r\n\r\n\"OK\"";
 			// Note: the fcgi_streambuf destructor will auto flush
 		}
-		// cin.rdbuf(cin_streambuf);
+		cin.rdbuf(cin_streambuf);
 		cout.rdbuf(cout_streambuf);
 		// cerr.rdbuf(cerr_streambuf);
 	} else {

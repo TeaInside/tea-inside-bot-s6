@@ -3,6 +3,7 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
-#define TOKEN ""
+#define TOKEN "12341234:qweqweqweqwe_abc123qweasdzxcasd"
+#define BOT_USERNAME "@mybotqqqqbot"
 
 #endif
