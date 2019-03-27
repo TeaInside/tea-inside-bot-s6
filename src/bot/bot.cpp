@@ -38,16 +38,6 @@ void bot::bot::exec() {
 	}
 }
 
-inline static bool replace(std::string& str, const std::string& from, const std::string& to) {
-    size_t start_pos = str.find(from);
-    if(start_pos == std::string::npos) {
-        return false;
-    }
-    str.replace(start_pos, from.length(), to);
-    return true;
-}
-
-
 std::string bot::bot::lang_bind(std::string str) {
 
 	if (!this->has_been_bind) {
@@ -57,8 +47,6 @@ std::string bot::bot::lang_bind(std::string str) {
 	}
 
 	replace(str, "{namelink}", this->namelink);
-
-
 	return str;
 }
 
